@@ -5,12 +5,15 @@ from __future__ import annotations
 import numpy as np
 
 
-def laplacian_2d_periodic(field: np.ndarray, dx: float, dy: float) -> np.ndarray:
-    """Compute the 2D Laplacian using second-order centered differences.
+def laplacian_2d_dirichlet(field: np.ndarray, dx: float, dy: float) -> np.ndarray:
+    """Compute the 2D Laplacian with homogeneous Dirichlet boundary conditions.
 
-    The operator assumes periodic boundary conditions in both directions.
+    The wavefunction is assumed to vanish on the outer boundary.
     """
 
-    d2x = (np.roll(field, -1, axis=0) - 2.0 * field + np.roll(field, 1, axis=0)) / (dx * dx)
-    d2y = (np.roll(field, -1, axis=1) - 2.0 * field + np.roll(field, 1, axis=1)) / (dy * dy)
-    return d2x + d2y
+    laplacian = np.zeros_like(field, dtype=field.dtype)
+    laplacian[1:-1, 1:-1] = (
+        (field[2:, 1:-1] - 2.0 * field[1:-1, 1:-1] + field[:-2, 1:-1]) / (dx * dx)
+        + (field[1:-1, 2:] - 2.0 * field[1:-1, 1:-1] + field[1:-1, :-2]) / (dy * dy)
+    )
+    return laplacian

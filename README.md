@@ -10,7 +10,8 @@ The implementation uses:
 - A uniform 2D grid
 - Second-order finite differences for the Laplacian
 - Fourth-order Runge-Kutta (RK4) time integration
-- Runtime logging and diagnostics (norm and energy)
+- Runtime logging and diagnostics (norm, energy, and wave-packet center)
+- Matplotlib-based visual summaries of the simulated state
 
 ## Project structure
 
@@ -49,7 +50,13 @@ Run the free Gaussian example:
 python examples/run_free_gaussian.py
 ```
 
-You should see logged diagnostics and final norm/energy values in the terminal.
+You should see logged diagnostics in the terminal and generated plots inside `Results/`:
+
+- `Results/free_gaussian_overview.png`: density and phase for selected times
+- `Results/free_gaussian_overview_diagnostics.png`: norm, energy, and wave-packet center trajectory
+- `Results/free_gaussian_overview_potential.png`: standalone plot of the potential landscape
+- `Results/free_gaussian_density.gif`: animated density evolution
+- `Results/free_gaussian_phase.gif`: animated phase evolution
 
 ## Running tests
 
@@ -67,5 +74,5 @@ pytest -q
 ## Notes
 
 - Units are dimensionless with \(\hbar = m = 1\).
-- The Laplacian uses periodic boundary conditions.
+- The Laplacian uses homogeneous Dirichlet boundary conditions, so \(\psi = 0\) on the boundary.
 - Additional potentials can be added in `src/potential.py`.
