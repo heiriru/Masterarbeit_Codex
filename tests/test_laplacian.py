@@ -1,10 +1,10 @@
 import numpy as np
 
 from src.grid import Grid2D
-from src.laplacian import laplacian_2d_dirichlet
+from src.operators import laplacian_2d_dirichlet
 
 
-def test_laplacian_of_sine_modes_dirichlet():
+def test_dirichlet_laplacian_of_sine_modes_dirichlet():
     grid = Grid2D(nx=128, ny=96, lx=2 * np.pi, ly=2 * np.pi)
     mx, my = 3, 2
     i = np.arange(grid.nx)

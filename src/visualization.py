@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import Normalize
 
+from src.diagnostics import Diagnostics
 from src.grid import Grid2D
-from src.simulation import Diagnostics
 
 
 def _extent(grid: Grid2D) -> list[float]:
@@ -76,16 +76,16 @@ def plot_simulation_summary(
     diag_axes = diagnostics_fig.subplots(1, 3)
     diagnostics_fig.suptitle("Simulation Diagnostics", fontsize=16)
 
-    diag_axes[0].plot(diagnostics.times, diagnostics.norms, color="tab:blue", linewidth=2)
-    diag_axes[0].set_title("Norm conservation")
+    diag_axes[0].plot(diagnostics.times, diagnostics.particle_number_drift, color="tab:blue", linewidth=2)
+    diag_axes[0].set_title("Particle-number drift")
     diag_axes[0].set_xlabel("time")
-    diag_axes[0].set_ylabel("norm")
+    diag_axes[0].set_ylabel("N(t) - N(0)")
     diag_axes[0].grid(True, alpha=0.3)
 
-    diag_axes[1].plot(diagnostics.times, diagnostics.energies, color="tab:green", linewidth=2)
-    diag_axes[1].set_title("Energy evolution")
+    diag_axes[1].plot(diagnostics.times, diagnostics.energy_drift, color="tab:green", linewidth=2)
+    diag_axes[1].set_title("Energy drift")
     diag_axes[1].set_xlabel("time")
-    diag_axes[1].set_ylabel("energy")
+    diag_axes[1].set_ylabel("E(t) - E(0)")
     diag_axes[1].grid(True, alpha=0.3)
 
     diag_axes[2].plot(diagnostics.x_expectation, diagnostics.y_expectation, color="tab:red", linewidth=2)
